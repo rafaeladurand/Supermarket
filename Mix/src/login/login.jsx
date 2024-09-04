@@ -27,7 +27,7 @@ const Login = () => {
         const dataUsuario = await responseUsuario.json();
   
         if (responseUsuario.ok) {
-          navigate('/usuario');
+          navigate('/funcionario');
         } else if (dataUsuario.message === "Usuário não encontrado") {      
           const responseCliente = await fetch('http://localhost:3001/cliente/autenticar', {
             method: 'POST',
@@ -40,7 +40,7 @@ const Login = () => {
           const dataCliente = await responseCliente.json();
   
           if (responseCliente.ok && dataCliente.message === "Login bem-sucedido!") {
-            navigate('/cliente');
+            //navigate('/cliente');
           } else {
             setMessage(dataCliente.message || 'Erro ao fazer login'); 
           }

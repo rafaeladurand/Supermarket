@@ -1,29 +1,40 @@
-import React, {  } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import './produtos.css';
 
 const ProductCard = ({ product }) => {
-  const { name, price } = product;
+  const { nome, precoAtual, precoPromocao } = product;
 
   return (
     <div className="card">
-      <h3 className="name">{name}</h3>
-      <p className="price">R$ {price.toFixed(2)}</p>
+      <h3 className="name">{nome}</h3>
+      <p className="price">Preço Atual: R$ {precoAtual.toFixed(2)}</p>
+      <p className="price">Preço Promoção: R$ {precoPromocao.toFixed(2)}</p>
     </div>
   );
 };
 
-
 const ProductList = () => {
-  const products = [
-    { id: 1, name: 'Azeite Português Extra Virgem Gallo 500ml', price: 20.49 },
-    { id: 2, name: 'Bebida Energética Vibe 2L', price: 8.99 },
-    { id: 3, name: 'Energético Red Bull Energy Drink 355ml', price: 10.79 },
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/produto');
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Erro ao buscar produtos:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <div className="grid">
       {products.map(product => (
-        <ProductCard key={product.id} product={product} />
+      
+        <ProductCard key={product._id} product={product} />
       ))}
     </div>
   );
