@@ -1,105 +1,40 @@
-import React, { useState } from 'react';
-import './CadastroModal.css'; 
+import React from 'react';
+import './CadastroModal.css'; // Crie ou mova os estilos específicos para o modal de cadastro aqui
 
-const CadastroModal = ({ isOpen, onClose }) => {
-    const [formData, setFormData] = useState({
-        nome: '',
-        cpf: '',
-        idade: '',
-        tempoCliente: '',
-        senha: ''
-    });
-
+const CadastroModal = ({ isOpen, closeCadastroModal, onSubmit }) => {
     if (!isOpen) return null;
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch('http://localhost:3001/cliente', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            if (response.ok) {
-                onClose(); // Fechar o modal após o envio
-            } else {
-                console.error('Erro ao cadastrar o cliente:', await response.text());
-            }
-            window.location.reload();
-        } catch (error) {
-            console.error('Erro ao cadastrar o cliente:', error);
-        }
-    };
 
     return (
         <div className="modalOverlay">
             <div className="modalContent">
-                <h2>Cadastro de Cliente</h2>
-                <form onSubmit={handleSubmit}>
+                <h2>Cadastro de Produto</h2>
+                <form onSubmit={onSubmit}>
                     <div className="formGroup">
                         <label htmlFor="nome">Nome:</label>
-                        <input
-                            type="text"
-                            id="nome"
-                            name="nome"
-                            value={formData.nome}
-                            onChange={handleChange}
-                            required
-                        />
+                        <input type="text" id="nome" name="nome" required />
                     </div>
                     <div className="formGroup">
-                        <label htmlFor="cpf">CPF:</label>
-                        <input
-                            type="text"
-                            id="cpf"
-                            name="cpf"
-                            value={formData.cpf}
-                            onChange={handleChange}
-                            required
-                        />
+                        <label htmlFor="precoAtual">Preço Atual:</label>
+                        <input type="number" id="precoAtual" name="precoAtual" step="0.01" required />
                     </div>
                     <div className="formGroup">
-                        <label htmlFor="idade">Idade:</label>
-                        <input
-                            type="number"
-                            id="idade"
-                            name="idade"
-                            value={formData.idade}
-                            onChange={handleChange}
-                            required
-                        />
+                        <label htmlFor="precoPromocao">Preço Promoção:</label>
+                        <input type="number" id="precoPromocao" name="precoPromocao" step="0.01" required />
                     </div>
                     <div className="formGroup">
-                        <label htmlFor="tempoCliente">Tempo de Cliente:</label>
-                        <input
-                            type="text"
-                            id="tempoCliente"
-                            name="tempoCliente"
-                            value={formData.tempoCliente}
-                            onChange={handleChange}
-                            required
-                        />
+                        <label htmlFor="tipo">Tipo:</label>
+                        <input type="text" id="tipo" name="tipo" required />
                     </div>
                     <div className="formGroup">
-                        <label htmlFor="senha">Senha:</label>
-                        <input
-                            type="password"
-                            id="senha"
-                            name="senha"
-                            value={formData.senha}
-                            onChange={handleChange}
-                            required
-                        />
+                        <label htmlFor="descricao">Descrição:</label>
+                        <textarea id="descricao" name="descricao" required />
+                    </div>
+                    <div className="formGroup">
+                        <label htmlFor="dataValidade">Data de Validade:</label>
+                        <input type="date" id="dataValidade" name="dataValidade" required />
                     </div>
                     <button type="submit" className="submitButton">Cadastrar</button>
-                    <button type="button" onClick={onClose} className="closeButton">Fechar</button>
+                    <button type="button" onClick={closeCadastroModal} className="closeButton">Fechar</button>
                 </form>
             </div>
         </div>
@@ -107,4 +42,5 @@ const CadastroModal = ({ isOpen, onClose }) => {
 };
 
 export default CadastroModal;
+
 

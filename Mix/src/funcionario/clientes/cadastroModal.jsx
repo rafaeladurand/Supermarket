@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CadastroModal.css'; 
 
-const CadastroModal = ({ isOpen, onClose }) => {
+const CadastroModal = ({ isOpen, onClose, onAddCliente }) => { // Recebe a função onAddCliente como prop
     const [formData, setFormData] = useState({
         nome: '',
         cpf: '',
@@ -28,12 +28,12 @@ const CadastroModal = ({ isOpen, onClose }) => {
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
-                // Atualize a lista de clientes no componente pai se necessário
-                onClose(); // Fechar o modal após o envio
+                const newCliente = await response.json();
+                onAddCliente(newCliente); // Adiciona o novo cliente sem recarregar a página
+                onClose();
             } else {
                 console.error('Erro ao cadastrar o cliente:', await response.text());
             }
-            window.location.reload();
         } catch (error) {
             console.error('Erro ao cadastrar o cliente:', error);
         }

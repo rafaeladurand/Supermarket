@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../componentes/header';
+import CadastroModal from './CadastroProduto'; // Importe o modal
 import './Produtos.css';
 
 const Produto = () => {
@@ -28,6 +29,7 @@ const Produto = () => {
                 method: 'DELETE',
             });
             setProdutos(produtos.filter(produto => produto._id !== id));
+            window.location.reload();
         } catch (error) {
             console.error('Erro ao excluir o produto:', error);
         }
@@ -58,6 +60,7 @@ const Produto = () => {
             } else {
                 console.error('Erro ao atualizar o desconto:', await response.text());
             }
+            window.location.reload();
         } catch (error) {
             console.error('Erro ao atualizar o desconto:', error);
         }
@@ -70,6 +73,38 @@ const Produto = () => {
     const closeDescontoModal = () => {
         setIsDescontoModalOpen(false);
         setCurrentProduto(null);
+    };
+
+    const handleCadastroSubmit = async (e) => {
+        e.preventDefault();
+        const formData = {
+            nome: e.target.nome.value,
+            precoAtual: parseFloat(e.target.precoAtual.value),
+            precoPromocao: parseFloat(e.target.precoPromocao.value),
+            tipo: e.target.tipo.value,
+            descricao: e.target.descricao.value,
+            dataValidade: e.target.dataValidade.value,
+        };
+
+        try {
+            const response = await fetch('http://localhost:3001/produto', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            if (response.ok) {
+                const newProduto = await response.json();
+                setProdutos([...produtos, newProduto]);
+                closeCadastroModal();
+            } else {
+                console.error('Erro ao cadastrar o produto:', await response.text());
+            }
+            window.location.reload();
+        } catch (error) {
+            console.error('Erro ao cadastrar o produto:', error);
+        }
     };
 
     return (
@@ -103,75 +138,13 @@ const Produto = () => {
                 </ul>
             </div>
 
-            {/* Modal de Cadastro */}
-            {isCadastroModalOpen && (
-                <div className="modalOverlay">
-                    <div className="modalContent">
-                        <h2>Cadastro de Produto</h2>
-                        <form
-                            onSubmit={async (e) => {
-                                e.preventDefault();
-                                const formData = {
-                                    nome: e.target.nome.value,
-                                    precoAtual: parseFloat(e.target.precoAtual.value),
-                                    precoPromocao: parseFloat(e.target.precoPromocao.value),
-                                    tipo: e.target.tipo.value,
-                                    descricao: e.target.descricao.value,
-                                    dataValidade: e.target.dataValidade.value,
-                                };
-
-                                try {
-                                    const response = await fetch('http://localhost:3001/produto', {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify(formData),
-                                    });
-                                    if (response.ok) {
-                                        const newProduto = await response.json();
-                                        setProdutos([...produtos, newProduto]);
-                                        closeCadastroModal();
-                                    } else {
-                                        console.error('Erro ao cadastrar o produto:', await response.text());
-                                    }
-                                } catch (error) {
-                                    console.error('Erro ao cadastrar o produto:', error);
-                                }
-                            }}
-                        >
-                            <div className="formGroup">
-                                <label htmlFor="nome">Nome:</label>
-                                <input type="text" id="nome" name="nome" required />
-                            </div>
-                            <div className="formGroup">
-                                <label htmlFor="precoAtual">Preço Atual:</label>
-                                <input type="number" id="precoAtual" name="precoAtual" step="0.01" required />
-                            </div>
-                            <div className="formGroup">
-                                <label htmlFor="precoPromocao">Preço Promoção:</label>
-                                <input type="number" id="precoPromocao" name="precoPromocao" step="0.01" required />
-                            </div>
-                            <div className="formGroup">
-                                <label htmlFor="tipo">Tipo:</label>
-                                <input type="text" id="tipo" name="tipo" required />
-                            </div>
-                            <div className="formGroup">
-                                <label htmlFor="descricao">Descrição:</label>
-                                <textarea id="descricao" name="descricao" required />
-                            </div>
-                            <div className="formGroup">
-                                <label htmlFor="dataValidade">Data de Validade:</label>
-                                <input type="date" id="dataValidade" name="dataValidade" required />
-                            </div>
-                            <button type="submit" className="submitButton">Cadastrar</button>
-                            <button type="button" onClick={closeCadastroModal} className="closeButton">Fechar</button>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {/* Modal de Edição de Desconto */}
+            <CadastroModal
+                isOpen={isCadastroModalOpen}
+                closeCadastroModal={closeCadastroModal}
+                onSubmit={handleCadastroSubmit}
+            />
+            
+            {/* Modal de desconto ainda no mesmo arquivo */}
             {isDescontoModalOpen && (
                 <div className="modalOverlay">
                     <div className="modalContent">
