@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import CadastroModal from './CadastroCliente'; // Modal de Cadastro
 import Header from '../../componentes/header';
-import CadastroModal from './CadastroModal'; 
-import './Cliente.css';
+import './Cliente.css'; // Importa o CSS
 
 const Cliente = () => {
     const [clientes, setClientes] = useState([]);
@@ -73,31 +73,27 @@ const Cliente = () => {
         setCurrentCliente(null);
     };
 
-    const addNewCliente = (newCliente) => {
-        setClientes([...clientes, newCliente]);
-    };
-
     return (
         <div>
             <Header />
-            <div className="banner" style={{ position: 'relative' }}>
+            <div className="banner">
                 <h1>TELA DE CLIENTE DO SISTEMA</h1>
-                <button onClick={() => setIsCadastroModalOpen(true)} style={styles.addButton}>Cadastrar</button>
+                <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">Cadastrar</button>
             </div>
             <div className="grid">
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
                     {clientes.length > 0 ? (
                         clientes.map(cliente => (
-                            <li key={cliente._id} style={{ marginBottom: '10px' }}>
-                                <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
+                            <li key={cliente._id} className="clientItem">
+                                <div className="clientCard">
                                     <p><strong>Nome:</strong> {cliente.nome}</p>
                                     <p><strong>CPF:</strong> {cliente.cpf}</p>
                                     <p><strong>Idade:</strong> {cliente.idade}</p>
                                     <p><strong>Tempo de cliente:</strong> {cliente.tempoCliente}</p>
                                     <p><strong>Desconto:</strong> {cliente.desconto || 'N/A'}</p>
 
-                                    <button onClick={() => handleEditDesconto(cliente)} style={{ marginRight: '10px' }}>Editar Desconto</button>
-                                    <button onClick={() => handleDelete(cliente._id)} style={{ backgroundColor: 'red', color: 'white' }}>Excluir</button>
+                                    <button onClick={() => handleEditDesconto(cliente)} className="editButton">Editar Desconto</button>
+                                    <button onClick={() => handleDelete(cliente._id)} className="deleteButton">Excluir</button>
                                 </div>
                             </li>
                         ))
@@ -106,15 +102,10 @@ const Cliente = () => {
                     )}
                 </ul>
             </div>
-            <CadastroModal 
-                isOpen={isCadastroModalOpen} 
-                onClose={closeCadastroModal} 
-                onAddCliente={addNewCliente} // Passa a função de adicionar cliente
-            />
-
+            <CadastroModal isOpen={isCadastroModalOpen} onClose={closeCadastroModal} />
             {isDescontoModalOpen && (
-                <div style={styles.modalOverlay}>
-                    <div style={styles.modalContent}>
+                <div className="modalOverlay">
+                    <div className="modalContent">
                         <h2>Editar Desconto</h2>
                         <form
                             onSubmit={(e) => {
@@ -123,7 +114,7 @@ const Cliente = () => {
                                 handleUpdateDesconto(desconto);
                             }}
                         >
-                            <div style={styles.formGroup}>
+                            <div className="formGroup">
                                 <label htmlFor="desconto">Desconto:</label>
                                 <input
                                     type="number"
@@ -134,8 +125,8 @@ const Cliente = () => {
                                     required
                                 />
                             </div>
-                            <button type="submit" style={styles.submitButton}>Atualizar</button>
-                            <button type="button" onClick={closeDescontoModal} style={styles.closeButton}>Fechar</button>
+                            <button type="submit" className="submitButton">Atualizar</button>
+                            <button type="button" onClick={closeDescontoModal} className="closeButton">Fechar</button>
                         </form>
                     </div>
                 </div>
@@ -144,5 +135,5 @@ const Cliente = () => {
     );
 };
 
-
 export default Cliente;
+

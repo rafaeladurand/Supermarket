@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './CadastroModal.css'; 
+import './CadastroModal.css'; // Importa o CSS
 
-const CadastroModal = ({ isOpen, onClose, onAddCliente }) => { // Recebe a função onAddCliente como prop
+const CadastroModal = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
         nome: '',
         cpf: '',
@@ -28,12 +28,11 @@ const CadastroModal = ({ isOpen, onClose, onAddCliente }) => { // Recebe a funç
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
-                const newCliente = await response.json();
-                onAddCliente(newCliente); // Adiciona o novo cliente sem recarregar a página
-                onClose();
+                onClose(); 
             } else {
                 console.error('Erro ao cadastrar o cliente:', await response.text());
             }
+            window.location.reload();
         } catch (error) {
             console.error('Erro ao cadastrar o cliente:', error);
         }
@@ -108,3 +107,4 @@ const CadastroModal = ({ isOpen, onClose, onAddCliente }) => { // Recebe a funç
 };
 
 export default CadastroModal;
+

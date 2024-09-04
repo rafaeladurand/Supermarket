@@ -5,7 +5,7 @@ import Home from './home/Home';
 import Login from './login/Login';
 import Usuario from './home/usuario';
 import Cliente from './home/cliente';
-import ClienteFuncionario from './funcionario/clientes/ClientManager';
+import ClienteFuncionario from './funcionario/clientes/ClientManager'
 import ProdutoFuncionario from './funcionario/produtos/ProductManager';
 import UsuarioFuncionario from './funcionario/usuarios/UserManager';
 
