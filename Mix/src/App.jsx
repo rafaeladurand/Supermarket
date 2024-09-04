@@ -6,8 +6,8 @@ import Login from './login/Login';
 import Usuario from './home/usuario';
 import Cliente from './home/cliente';
 import ClienteFuncionario from './funcionario/clientes/ClientManager';
-import ClienteProduto from './funcionario/produtos/ProductManager';
-
+import ProdutoFuncionario from './funcionario/produtos/ProductManager';
+import UsuarioFuncionario from './funcionario/usuarios/UserManager';
 
 
 function App() {
@@ -20,8 +20,8 @@ function App() {
         <Route path="/cliente" element={<Cliente />} />
 
         <Route path="/funcionario/cliente" element={<ClienteFuncionario />} />
-        <Route path="/funcionario/produto" element={<ClienteProduto />} />
-
+        <Route path="/funcionario/produto" element={<ProdutoFuncionario />} />
+        <Route path="/funcionario/usuario" element={<UsuarioFuncionario />} />
 
       </Routes>
     </Router>

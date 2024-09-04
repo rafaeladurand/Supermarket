@@ -12,6 +12,9 @@ const Usuario = () => {
     const met2 = () => {
         navigate('/funcionario/produto'); 
     };
+    const met3 = () => {
+        navigate('/funcionario/usuario'); 
+    };
 
     return (
         <div>
@@ -24,6 +27,7 @@ const Usuario = () => {
                 </div>
                 <div className="card">
                     <h3 className="name">Gerenciamento Usuários</h3>
+                    <button className="manage-button" onClick={met3}>Gerenciar</button>
                 </div>
                 <div className="card">
                     <h3 className="name">Gerenciamento Clientes</h3>

@@ -4,7 +4,7 @@ import './header.css';
 import homeimage from './home.png';
 import loginimage from './login.png';
 import logoImage from './logo.png';
-
+import managerImage from './configuracoes.png'
 
 const Header = () => {
     return (
@@ -21,6 +21,9 @@ const Header = () => {
           </Link>
           <Link to="/login">
             <img src={loginimage} alt="Login" className="icon" />
+          </Link>
+          <Link to="/funcionario">
+            <img src={managerImage} alt="Gerenciamento" className="icon" />
           </Link>
         </div>
       </header>
