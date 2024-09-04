@@ -1,7 +1,7 @@
 import React, { } from 'react';
-import './home';
+import './Home';
 import Header from '../componentes/header';
-import ProductList from '../produtos/produtos';
+import ProductList from '../produtos/ProductsList';
 
 const Cliente = () => {
     return (<div>

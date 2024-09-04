@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CadastroModal from './cadastroModal'; // Modal de Cadastro
+import CadastroModal from './CadastroModal'; // Modal de Cadastro
 import Header from '../../componentes/header';
 
 const Cliente = () => {

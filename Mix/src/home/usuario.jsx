@@ -1,16 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa o hook useNavigate
-import './home.css'; // Certifique-se de que o CSS está correto
+import { useNavigate } from 'react-router-dom'; 
+import './home.css'; 
 import Header from '../componentes/header';
 
 const Usuario = () => {
-    const navigate = useNavigate(); // Inicializa o hook useNavigate
-
+    const navigate = useNavigate(); 
+    
     const met = () => {
-        navigate('/funcionario/cliente'); // Redireciona para a página desejada
+        navigate('/funcionario/cliente'); 
     };
     const met2 = () => {
-        navigate('/funcionario/produto'); // Redireciona para a página desejada
+        navigate('/funcionario/produto'); 
     };
 
     return (

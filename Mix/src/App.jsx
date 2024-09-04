@@ -1,12 +1,12 @@
 import React, { } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Home from './home/home';
-import Login from './login/login';
+import Home from './home/Home';
+import Login from './login/Login';
 import Usuario from './home/usuario';
 import Cliente from './home/cliente';
-import ClienteFuncionario from './funcionario/clientes/cliente';
-import ClienteProduto from './funcionario/produtos/produtos';
+import ClienteFuncionario from './funcionario/clientes/ClientManager';
+import ClienteProduto from './funcionario/produtos/ProductManager';
 
 
 

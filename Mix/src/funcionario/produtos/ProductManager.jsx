@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../componentes/header';
+import './Produtos.css';
 
 const Produto = () => {
     const [produtos, setProdutos] = useState([]);
     const [isCadastroModalOpen, setIsCadastroModalOpen] = useState(false);
     const [isDescontoModalOpen, setIsDescontoModalOpen] = useState(false);
-    const [currentProduto, setCurrentProduto] = useState(null); // Estado para o produto atual
+    const [currentProduto, setCurrentProduto] = useState(null);
 
     useEffect(() => {
         const fetchProdutos = async () => {
@@ -76,7 +77,7 @@ const Produto = () => {
             <Header />
             <div className="banner" style={{ position: 'relative' }}>
                 <h1>TELA DE PRODUTO DO SISTEMA</h1>
-                <button onClick={() => setIsCadastroModalOpen(true)} style={styles.addButton}>Cadastrar</button>
+                <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">Cadastrar</button>
             </div>
             <div className="grid">
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
@@ -104,8 +105,8 @@ const Produto = () => {
 
             {/* Modal de Cadastro */}
             {isCadastroModalOpen && (
-                <div style={styles.modalOverlay}>
-                    <div style={styles.modalContent}>
+                <div className="modalOverlay">
+                    <div className="modalContent">
                         <h2>Cadastro de Produto</h2>
                         <form
                             onSubmit={async (e) => {
@@ -139,32 +140,32 @@ const Produto = () => {
                                 }
                             }}
                         >
-                            <div style={styles.formGroup}>
+                            <div className="formGroup">
                                 <label htmlFor="nome">Nome:</label>
                                 <input type="text" id="nome" name="nome" required />
                             </div>
-                            <div style={styles.formGroup}>
+                            <div className="formGroup">
                                 <label htmlFor="precoAtual">Preço Atual:</label>
                                 <input type="number" id="precoAtual" name="precoAtual" step="0.01" required />
                             </div>
-                            <div style={styles.formGroup}>
+                            <div className="formGroup">
                                 <label htmlFor="precoPromocao">Preço Promoção:</label>
                                 <input type="number" id="precoPromocao" name="precoPromocao" step="0.01" required />
                             </div>
-                            <div style={styles.formGroup}>
+                            <div className="formGroup">
                                 <label htmlFor="tipo">Tipo:</label>
                                 <input type="text" id="tipo" name="tipo" required />
                             </div>
-                            <div style={styles.formGroup}>
+                            <div className="formGroup">
                                 <label htmlFor="descricao">Descrição:</label>
                                 <textarea id="descricao" name="descricao" required />
                             </div>
-                            <div style={styles.formGroup}>
+                            <div className="formGroup">
                                 <label htmlFor="dataValidade">Data de Validade:</label>
                                 <input type="date" id="dataValidade" name="dataValidade" required />
                             </div>
-                            <button type="submit" style={styles.submitButton}>Cadastrar</button>
-                            <button type="button" onClick={closeCadastroModal} style={styles.closeButton}>Fechar</button>
+                            <button type="submit" className="submitButton">Cadastrar</button>
+                            <button type="button" onClick={closeCadastroModal} className="closeButton">Fechar</button>
                         </form>
                     </div>
                 </div>
@@ -172,8 +173,8 @@ const Produto = () => {
 
             {/* Modal de Edição de Desconto */}
             {isDescontoModalOpen && (
-                <div style={styles.modalOverlay}>
-                    <div style={styles.modalContent}>
+                <div className="modalOverlay">
+                    <div className="modalContent">
                         <h2>Editar Promoção</h2>
                         <form
                             onSubmit={(e) => {
@@ -182,77 +183,18 @@ const Produto = () => {
                                 handleUpdateDesconto(precoPromocao);
                             }}
                         >
-                            <div style={styles.formGroup}>
-                                <label htmlFor="precoPromocao">Preço Promoção:</label>
-                                <input
-                                    type="number"
-                                    id="precoPromocao"
-                                    name="precoPromocao"
-                                    step="0.01"
-                                    defaultValue={currentProduto ? currentProduto.precoPromocao || '' : ''}
-                                    required
-                                />
+                            <div className="formGroup">
+                                <label htmlFor="precoPromocao">Novo Preço Promoção:</label>
+                                <input type="number" id="precoPromocao" name="precoPromocao" step="0.01" required />
                             </div>
-                            <button type="submit" style={styles.submitButton}>Atualizar</button>
-                            <button type="button" onClick={closeDescontoModal} style={styles.closeButton}>Fechar</button>
+                            <button type="submit" className="submitButton">Atualizar</button>
+                            <button type="button" onClick={closeDescontoModal} className="closeButton">Fechar</button>
                         </form>
                     </div>
                 </div>
             )}
         </div>
     );
-};
-
-// Estilos em linha
-const styles = {
-    addButton: {
-        position: 'absolute',
-        top: '10px',
-        right: '10px',
-        padding: '10px 20px',
-        backgroundColor: '#007bff',
-        color: 'white',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-    },
-    modalOverlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    modalContent: {
-        backgroundColor: 'white',
-        padding: '20px',
-        borderRadius: '5px',
-        width: '400px',
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-    },
-    formGroup: {
-        marginBottom: '15px',
-    },
-    submitButton: {
-        padding: '10px 15px',
-        backgroundColor: '#007bff',
-        color: 'white',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        marginRight: '10px',
-    },
-    closeButton: {
-        padding: '10px 15px',
-        backgroundColor: '#ccc',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-    },
 };
 
 export default Produto;

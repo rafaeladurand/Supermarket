@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './CadastroModal.css'; // Importando o arquivo CSS
 
 const CadastroModal = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
@@ -27,23 +28,22 @@ const CadastroModal = ({ isOpen, onClose }) => {
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
-                // Atualize a lista de clientes no componente pai se necessário
                 onClose(); // Fechar o modal após o envio
             } else {
                 console.error('Erro ao cadastrar o cliente:', await response.text());
             }
-            window.location.reload()
+            window.location.reload();
         } catch (error) {
             console.error('Erro ao cadastrar o cliente:', error);
         }
     };
 
     return (
-        <div style={styles.modalOverlay}>
-            <div style={styles.modalContent}>
+        <div className="modalOverlay">
+            <div className="modalContent">
                 <h2>Cadastro de Cliente</h2>
                 <form onSubmit={handleSubmit}>
-                    <div style={styles.formGroup}>
+                    <div className="formGroup">
                         <label htmlFor="nome">Nome:</label>
                         <input
                             type="text"
@@ -54,7 +54,7 @@ const CadastroModal = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div style={styles.formGroup}>
+                    <div className="formGroup">
                         <label htmlFor="cpf">CPF:</label>
                         <input
                             type="text"
@@ -65,7 +65,7 @@ const CadastroModal = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div style={styles.formGroup}>
+                    <div className="formGroup">
                         <label htmlFor="idade">Idade:</label>
                         <input
                             type="number"
@@ -76,7 +76,7 @@ const CadastroModal = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div style={styles.formGroup}>
+                    <div className="formGroup">
                         <label htmlFor="tempoCliente">Tempo de Cliente:</label>
                         <input
                             type="text"
@@ -87,7 +87,7 @@ const CadastroModal = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div style={styles.formGroup}>
+                    <div className="formGroup">
                         <label htmlFor="senha">Senha:</label>
                         <input
                             type="password"
@@ -98,53 +98,13 @@ const CadastroModal = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <button type="submit" style={styles.submitButton}>Cadastrar</button>
-                    <button type="button" onClick={onClose} style={styles.closeButton}>Fechar</button>
+                    <button type="submit" className="submitButton">Cadastrar</button>
+                    <button type="button" onClick={onClose} className="closeButton">Fechar</button>
                 </form>
             </div>
         </div>
     );
 };
 
-// Estilos em linha
-const styles = {
-    modalOverlay: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    modalContent: {
-        backgroundColor: 'white',
-        padding: '20px',
-        borderRadius: '5px',
-        width: '400px',
-        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-    },
-    formGroup: {
-        marginBottom: '15px',
-    },
-    submitButton: {
-        padding: '10px 15px',
-        backgroundColor: '#007bff',
-        color: 'white',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        marginRight: '10px',
-    },
-    closeButton: {
-        padding: '10px 15px',
-        backgroundColor: '#ccc',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-    },
-};
-
 export default CadastroModal;
+

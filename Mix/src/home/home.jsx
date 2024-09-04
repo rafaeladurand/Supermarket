@@ -1,7 +1,7 @@
 import React, { } from 'react';
 import Header from '../componentes/header';
 import './home.css';
-import ProductList from '../produtos/produtos';
+import ProductList from '../produtos/ProductsList';
 
 const Home = () => {
   return (

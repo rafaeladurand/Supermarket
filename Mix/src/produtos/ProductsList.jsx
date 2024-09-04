@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './produtos.css';
+import './Produtos.css';
 
 const ProductCard = ({ product }) => {
   const { nome, precoAtual, precoPromocao } = product;
