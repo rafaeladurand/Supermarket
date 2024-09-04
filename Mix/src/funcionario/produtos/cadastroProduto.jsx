@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CadastroModal.css'; // Importando o arquivo CSS
+import './CadastroModal.css'; 
 
 const CadastroModal = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
