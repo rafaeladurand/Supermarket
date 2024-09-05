@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
 import './Login.css';
-import Header from '../componentes/Header';
+import Header from './LoginHeader';
 
 const Login = () => {
     const [cpf, setCpf] = useState('');
