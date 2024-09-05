@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #FFFFFF;
+    background-color: #ffff;
     overflow: hidden;
 }
 
@@ -24,8 +24,9 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px; 
+    width: 90%;
+    max-width: 900px; 
+    margin: 0 20px;
 }
 
 h1 {
@@ -47,7 +48,10 @@ button {
     background-color: #009688;
     color: white;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+
 }
 
-
-
+button:hover {
+    background-color: #00796B; /* Efeito hover para o botão */
+}
