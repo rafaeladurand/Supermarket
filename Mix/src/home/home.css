@@ -1,28 +1,4 @@
-.header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #f8f8f8;
-    align-items: center;
-  }
-  
-  .logo {
-    width: 70px;
-    height: auto;
-    margin-left: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .logoText {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-left: 15px; 
-    vertical-align: middle; 
-    display: inline-block;
-    color: #009688;
-  }
-  
+
   
   .cart {
     display: flex;

@@ -1,10 +1,10 @@
 import React, {  } from 'react'; 
 import { Link } from 'react-router-dom'; 
 import './Header.css';
-import homeimage from './home.png';
-import loginimage from './login.png';
-import logoImage from './logo.png';
-import managerImage from './configuracoes.png'
+import homeimage from '../assets/home.png';
+import loginimage from '../assets/login.png';
+import logoImage from '../assets/logo.png';
+import managerImage from '../assets/configuracoes.png'
 
 const Header = () => {
     return (
@@ -16,7 +16,7 @@ const Header = () => {
           <span className="logoText">mix.com.br</span>
         </div>
         <div className="cart">
-          <Link to="/">
+          <Link to="/home">
             <img src={homeimage} alt="Home" className="icon" />
           </Link>
           <Link to="/login">

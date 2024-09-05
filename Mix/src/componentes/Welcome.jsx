@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from './logo.png'; 
+import logo from '../assets/logo.png'; 
 import './Welcome.css'
 
 const Welcome = () => {
@@ -15,7 +15,7 @@ const Welcome = () => {
        <img className='img-logo' src={logo} alt="logo-mix" />
       <div className="card">
         <h1>Bem-Vindo ao <strong>Mix da Fátima!</strong></h1>
-        <p>O melhor aplicativo administrativo para você e sua empresa</p>
+        <p>O melhor sistema administrativo para você e sua empresa</p>
         <button onClick={handleGetStarted}>Vamos lá</button>
       </div>
     </div>
