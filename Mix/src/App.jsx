@@ -1,6 +1,7 @@
 import React, { } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
+import Welcome from './componentes/Welcome';
 import Home from './home/Home';
 import Login from './login/Login';
 import Usuario from './home/usuario';
@@ -14,7 +15,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+       <Route path="/" element={<Welcome />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/funcionario" element={<Usuario />} />
         <Route path="/cliente" element={<Cliente />} />

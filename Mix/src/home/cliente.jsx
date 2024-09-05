@@ -1,6 +1,6 @@
 import React, { } from 'react';
 import './Home';
-import Header from '../componentes/header';
+import Header from '../componentes/Header';
 import ProductList from '../produtos/ProductsList';
 
 const Cliente = () => {
