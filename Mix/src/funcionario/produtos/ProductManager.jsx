@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../componentes/header';
 import CadastroModal from './CadastroProduto'; // Importe o modal
 import './Produtos.css';
+import botaoEditar from '../../assets/lapis.png';
 
 const Produto = () => {
     const [produtos, setProdutos] = useState([]);
@@ -127,7 +128,13 @@ const Produto = () => {
                                     <p><strong>Descrição:</strong> {produto.descricao}</p>
                                     <p><strong>Data de Validade:</strong> {new Date(produto.dataValidade).toLocaleDateString()}</p>
 
-                                    <button onClick={() => handleEditDesconto(produto)} style={{ marginRight: '10px' }}>Editar Promoção</button>
+                                    <button onClick={() => handleEditDesconto(produto)} style={{ marginRight: '10px' }}>
+                                        <img
+                                            src={botaoEditar}
+                                            alt="Editar"
+                                            style={{ width: '24px', height: '24px' }}
+                                        />
+                                    </button>
                                     <button onClick={() => handleDelete(produto._id)} style={{ backgroundColor: 'red', color: 'white' }}>Excluir</button>
                                 </div>
                             </li>
@@ -143,7 +150,7 @@ const Produto = () => {
                 closeCadastroModal={closeCadastroModal}
                 onSubmit={handleCadastroSubmit}
             />
-            
+
             {/* Modal de desconto ainda no mesmo arquivo */}
             {isDescontoModalOpen && (
                 <div className="modalOverlay">
