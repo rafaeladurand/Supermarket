@@ -87,7 +87,7 @@ const Cliente = () => {
                             <p><strong>Nome:</strong> {cliente.nome}</p>
                             <p><strong>CPF:</strong> {cliente.cpf}</p>
                             <p><strong>Idade:</strong> {cliente.idade}</p>
-                            <p><strong>Tempo de cliente:</strong> {cliente.tempoCliente}</p>
+                            <p><strong>Tempo de cliente:</strong> {cliente.tempoCliente} anos</p>
                             <p><strong>Desconto:</strong> {cliente.desconto || 'N/A'}</p>
     
                             <button onClick={() => handleEditDesconto(cliente)} className="edit-button">Editar Desconto</button>
