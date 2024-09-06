@@ -7,8 +7,8 @@ const ProductCard = ({ product }) => {
   return (
     <div className="card">
       <h3 className="name">{nome}</h3>
-      <p className="price">Preço Atual: R$ {precoAtual.toFixed(2)}</p>
-      <p className="price">Preço Promoção: R$ {precoPromocao.toFixed(2)}</p>
+      <p className={precoPromocao?"current-price":"without-price"}>R$ {precoAtual.toFixed(2)}</p>
+      {precoPromocao&&(<p className="price">R$ {precoPromocao.toFixed(2)}</p>)}
     </div>
   );
 };

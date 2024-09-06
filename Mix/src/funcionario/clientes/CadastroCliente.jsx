@@ -28,25 +28,24 @@ const CadastroModal = ({ isOpen, onClose }) => {
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
-                onClose(); 
+                window.location.reload();
             } else {
                 console.error('Erro ao cadastrar o cliente:', await response.text());
             }
-            window.location.reload();
         } catch (error) {
             console.error('Erro ao cadastrar o cliente:', error);
         }
     };
 
     return (
-        <div className="modalOverlay">
-            <div className="modalContent">
+        <div className="modalOverlay-client">
+            <div className="modalContent-client">
                 <h2>Cadastro de Cliente</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="formGroup">
+                <form className='container-form' onSubmit={handleSubmit}>
+                    <div className="formGroup-price">
                         <label htmlFor="nome">Nome:</label>
                         <input
-                            type="text"
+                            className='input-style'
                             id="nome"
                             name="nome"
                             value={formData.nome}
@@ -54,10 +53,10 @@ const CadastroModal = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div className="formGroup">
+                    <div className="formGroup-price">
                         <label htmlFor="cpf">CPF:</label>
                         <input
-                            type="text"
+                            className='input-style'
                             id="cpf"
                             name="cpf"
                             value={formData.cpf}
@@ -65,31 +64,35 @@ const CadastroModal = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div className="formGroup">
-                        <label htmlFor="idade">Idade:</label>
-                        <input
-                            type="number"
-                            id="idade"
-                            name="idade"
-                            value={formData.idade}
-                            onChange={handleChange}
-                            required
-                        />
+                    <div className='container-time'>
+                        <div className="formGroup-price">
+                            <label htmlFor="idade">Idade:</label>
+                            <input
+                                className='input-style'
+                                type="number"
+                                id="idade"
+                                name="idade"
+                                value={formData.idade}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="formGroup-price">
+                            <label htmlFor="tempoCliente">Tempo de Cliente:</label>
+                            <input
+                                className='input-style'
+                                id="tempoCliente"
+                                name="tempoCliente"
+                                value={formData.tempoCliente}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
                     </div>
-                    <div className="formGroup">
-                        <label htmlFor="tempoCliente">Tempo de Cliente:</label>
-                        <input
-                            type="text"
-                            id="tempoCliente"
-                            name="tempoCliente"
-                            value={formData.tempoCliente}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="formGroup">
+                    <div className="formGroup-price">
                         <label htmlFor="senha">Senha:</label>
                         <input
+                            className='input-style'
                             type="password"
                             id="senha"
                             name="senha"

@@ -53,6 +53,7 @@ const Usuario = () => {
             });
 
             if (response.ok) {
+                window.location.reload();
                 const updatedData = await response.json();
                 setUsuarios(usuarios.map(usuario => usuario._id === updatedData._id ? updatedData : usuario));
                 setIsSenhaModalOpen(false);
@@ -81,6 +82,7 @@ const Usuario = () => {
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
+                window.location.reload();
                 const newUsuario = await response.json();
                 setUsuarios([...usuarios, newUsuario]);
                 setIsCadastroModalOpen(false);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../componentes/header';
 import CadastroModal from './CadastroProduto'; // Importe o modal
 import './Produtos.css';
-import botaoEditar from '../../assets/lapis.png';
+
 
 const Produto = () => {
     const [produtos, setProdutos] = useState([]);
@@ -55,13 +55,14 @@ const Produto = () => {
             });
 
             if (response.ok) {
+                window.location.reload();
                 const updatedData = await response.json();
                 setProdutos(produtos.map(produto => produto._id === updatedData._id ? updatedData : produto));
                 setIsDescontoModalOpen(false);
             } else {
                 console.error('Erro ao atualizar o desconto:', await response.text());
             }
-            window.location.reload();
+            
         } catch (error) {
             console.error('Erro ao atualizar o desconto:', error);
         }
@@ -96,13 +97,13 @@ const Produto = () => {
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
+                window.location.reload();
                 const newProduto = await response.json();
                 setProdutos([...produtos, newProduto]);
-                closeCadastroModal();
             } else {
                 console.error('Erro ao cadastrar o produto:', await response.text());
             }
-            window.location.reload();
+            
         } catch (error) {
             console.error('Erro ao cadastrar o produto:', error);
         }

@@ -19,11 +19,11 @@ const Header = () => {
           <Link to="/home">
             <img src={homeimage} alt="Home" className="icon" />
           </Link>
-          <Link to="/login">
-            <img src={sairimage} alt="Login" className="icon" />
-          </Link>
           <Link to="/funcionario">
             <img src={managerImage} alt="Gerenciamento" className="icon" />
+          </Link>
+          <Link to="/login">
+            <img src={sairimage} alt="Login" className="icon" />
           </Link>
         </div>
       </header>

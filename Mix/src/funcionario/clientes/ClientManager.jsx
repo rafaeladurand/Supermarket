@@ -77,30 +77,26 @@ const Cliente = () => {
         <div>
             <Header />
             <div className="banner">
-                <h1>TELA DE CLIENTE DO SISTEMA</h1>
+                <h1>CLIENTES</h1>
                 <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">Cadastrar</button>
             </div>
-            <div className="grid">
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {clientes.length > 0 ? (
-                        clientes.map(cliente => (
-                            <li key={cliente._id} className="clientItem">
-                                <div className="clientCard">
-                                    <p><strong>Nome:</strong> {cliente.nome}</p>
-                                    <p><strong>CPF:</strong> {cliente.cpf}</p>
-                                    <p><strong>Idade:</strong> {cliente.idade}</p>
-                                    <p><strong>Tempo de cliente:</strong> {cliente.tempoCliente}</p>
-                                    <p><strong>Desconto:</strong> {cliente.desconto || 'N/A'}</p>
-
-                                    <button onClick={() => handleEditDesconto(cliente)} className="editButton">Editar Desconto</button>
-                                    <button onClick={() => handleDelete(cliente._id)} className="deleteButton">Excluir</button>
-                                </div>
-                            </li>
-                        ))
-                    ) : (
-                        <li>Nenhum cliente encontrado.</li>
-                    )}
-                </ul>
+            <div className="grid-container">
+                {clientes.length > 0 ? (
+                    clientes.map(cliente => (
+                        <div key={cliente._id} className="client-card">
+                            <p><strong>Nome:</strong> {cliente.nome}</p>
+                            <p><strong>CPF:</strong> {cliente.cpf}</p>
+                            <p><strong>Idade:</strong> {cliente.idade}</p>
+                            <p><strong>Tempo de cliente:</strong> {cliente.tempoCliente}</p>
+                            <p><strong>Desconto:</strong> {cliente.desconto || 'N/A'}</p>
+    
+                            <button onClick={() => handleEditDesconto(cliente)} className="edit-button">Editar Desconto</button>
+                            <button onClick={() => handleDelete(cliente._id)} className="delete-button">Excluir</button>
+                        </div>
+                    ))
+                ) : (
+                    <p>Nenhum cliente encontrado.</p>
+                )}
             </div>
             <CadastroModal isOpen={isCadastroModalOpen} onClose={closeCadastroModal} />
             {isDescontoModalOpen && (
@@ -112,6 +108,7 @@ const Cliente = () => {
                                 e.preventDefault();
                                 const desconto = parseFloat(e.target.desconto.value);
                                 handleUpdateDesconto(desconto);
+                                window.location.reload();
                             }}
                         >
                             <div className="formGroup">
@@ -133,7 +130,7 @@ const Cliente = () => {
             )}
         </div>
     );
-};
+};    
 
 export default Cliente;
 

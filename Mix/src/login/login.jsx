@@ -55,7 +55,7 @@ const Login = () => {
     };
   
     return (
-      <div>
+      <div className='container-main'>
         <Header />
         <div className="login-container">
           <h2>Login</h2>
