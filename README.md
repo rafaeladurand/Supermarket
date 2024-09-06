@@ -2,7 +2,7 @@
 
 <br/>
 
-## `Projeto Back-end` ➥ [Link GitHub]([https://github.com/MayconCoutinho/Api-Shopper](https://github.com/rafaeladurand/Api-Supermarket))
+## `Projeto Back-end` ➥ [Link GitHub](https://github.com/rafaeladurand/Api-Supermarket)
 
 <br/>
 
