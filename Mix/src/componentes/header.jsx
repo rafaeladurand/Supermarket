@@ -2,7 +2,7 @@ import React, {  } from 'react';
 import { Link } from 'react-router-dom'; 
 import './Header.css';
 import homeimage from '../assets/home.png';
-import loginimage from '../assets/login.png';
+import sairimage from '../assets/saida.png';
 import logoImage from '../assets/logo.png';
 import managerImage from '../assets/configuracoes.png'
 
@@ -20,7 +20,7 @@ const Header = () => {
             <img src={homeimage} alt="Home" className="icon" />
           </Link>
           <Link to="/login">
-            <img src={loginimage} alt="Login" className="icon" />
+            <img src={sairimage} alt="Login" className="icon" />
           </Link>
           <Link to="/funcionario">
             <img src={managerImage} alt="Gerenciamento" className="icon" />

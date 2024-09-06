@@ -107,51 +107,39 @@ const Produto = () => {
             console.error('Erro ao cadastrar o produto:', error);
         }
     };
-
     return (
         <div>
             <Header />
             <div className="banner" style={{ position: 'relative' }}>
-                <h1>TELA DE PRODUTO DO SISTEMA</h1>
+                <h1>PRODUTOS</h1>
                 <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">Cadastrar</button>
             </div>
-            <div className="grid">
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {produtos.length > 0 ? (
-                        produtos.map(produto => (
-                            <li key={produto._id} style={{ marginBottom: '10px' }}>
-                                <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
-                                    <p><strong>Nome:</strong> {produto.nome}</p>
-                                    <p><strong>Preço Atual:</strong> {produto.precoAtual}</p>
-                                    <p><strong>Preço Promoção:</strong> {produto.precoPromocao}</p>
-                                    <p><strong>Tipo:</strong> {produto.tipo}</p>
-                                    <p><strong>Descrição:</strong> {produto.descricao}</p>
-                                    <p><strong>Data de Validade:</strong> {new Date(produto.dataValidade).toLocaleDateString()}</p>
-
-                                    <button onClick={() => handleEditDesconto(produto)} style={{ marginRight: '10px' }}>
-                                        <img
-                                            src={botaoEditar}
-                                            alt="Editar"
-                                            style={{ width: '24px', height: '24px' }}
-                                        />
-                                    </button>
-                                    <button onClick={() => handleDelete(produto._id)} style={{ backgroundColor: 'red', color: 'white' }}>Excluir</button>
-                                </div>
-                            </li>
-                        ))
-                    ) : (
-                        <li>Nenhum produto encontrado.</li>
-                    )}
-                </ul>
+            <div className="grid-container">
+                {produtos.length > 0 ? (
+                    produtos.map(produto => (
+                        <div key={produto._id} className="product-card">
+                            <p><strong>Nome:</strong> {produto.nome}</p>
+                            <p><strong>Preço Atual:</strong> {produto.precoAtual}</p>
+                            <p><strong>Preço Promoção:</strong> {produto.precoPromocao}</p>
+                            <p><strong>Tipo:</strong> {produto.tipo}</p>
+                            <p><strong>Descrição:</strong> {produto.descricao}</p>
+                            <p><strong>Data de Validade:</strong> {new Date(produto.dataValidade).toLocaleDateString()}</p>
+    
+                            <button onClick={() => handleEditDesconto(produto)} className="edit-button">Editar Preço </button>
+                            <button onClick={() => handleDelete(produto._id)} className="delete-button">Excluir</button>
+                        </div>
+                    ))
+                ) : (
+                    <p>Nenhum produto encontrado.</p>
+                )}
             </div>
-
+    
             <CadastroModal
                 isOpen={isCadastroModalOpen}
                 closeCadastroModal={closeCadastroModal}
                 onSubmit={handleCadastroSubmit}
             />
-
-            {/* Modal de desconto ainda no mesmo arquivo */}
+    
             {isDescontoModalOpen && (
                 <div className="modalOverlay">
                     <div className="modalContent">
@@ -175,6 +163,6 @@ const Produto = () => {
             )}
         </div>
     );
-};
+}  
 
 export default Produto;
