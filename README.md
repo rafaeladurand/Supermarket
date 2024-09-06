@@ -1,22 +1,20 @@
-**Projeto Back-end ➜ [Link GitHub](https://github.com/rafaeladurand/Api-Supermarket)**
+<h1 align="center"> Mix </h1>
 
-<h1 align="center"> Shopper </h1>
+<br/>
 
-<a id="Sumário"></a>
+## `Projeto Back-end` ➥ [Link GitHub]([https://github.com/MayconCoutinho/Api-Shopper](https://github.com/rafaeladurand/Api-Supermarket))
 
+<br/>
 
-<p align="center">
-  <b> Back-end  </b></br>
-  <sub> Api desenvolvida para atender as demandas de um teste tecnico da Shopper.com.br 
-  <sub>
-</p>
+https://github.com/user-attachments/assets/4772fa10-fe57-43ea-bf5d-e407a96f5fa7
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#table-of-contents)
+## ⚛️ Tecnologias utilizadas 
+- React Js 
+- React Router Dom
+- UseEffect  
+- UseState
 
-<p align="center">
-  <a href="#Introdução"> 🧩 Introdução </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Resultados"> 🚀 Resultados</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Dependências"> 🧪 Dependências</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Ideias">💡 Possíveis Melhorias </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#Creditos"> 🏆 Créditos </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</p>
+## 🖥️ Libs para instalar e visualizar o projeto 
+
+- Router ➜ npm i react-router-dom  ➜ npm run dev
+
