@@ -8,6 +8,7 @@ const Usuario = () => {
     const [isCadastroModalOpen, setIsCadastroModalOpen] = useState(false);
     const [isSenhaModalOpen, setIsSenhaModalOpen] = useState(false);
     const [currentUsuario, setCurrentUsuario] = useState(null);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
         const fetchUsuarios = async () => {
@@ -53,10 +54,14 @@ const Usuario = () => {
             });
 
             if (response.ok) {
-                window.location.reload();
+                setIsSuccess(true);
+                setTimeout(() => {
+                    setIsSuccess(false);
+                    setIsSenhaModalOpen(false);
+                    setCurrentUsuario(null);
+                }, 1000);
                 const updatedData = await response.json();
                 setUsuarios(usuarios.map(usuario => usuario._id === updatedData._id ? updatedData : usuario));
-                setIsSenhaModalOpen(false);
             } else {
                 console.error('Erro ao atualizar a senha:', await response.text());
             }
@@ -82,10 +87,14 @@ const Usuario = () => {
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
-                window.location.reload();
+                setIsSuccess(true);
+                setTimeout(() => {
+                    setIsSuccess(false);
+                    setIsCadastroModalOpen(false);
+                    window.location.reload();
+                }, 1000);
                 const newUsuario = await response.json();
                 setUsuarios([...usuarios, newUsuario]);
-                setIsCadastroModalOpen(false);
             } else {
                 console.error('Erro ao cadastrar o usuário:', await response.text());
             }
@@ -120,7 +129,7 @@ const Usuario = () => {
                                 <div>
                                     <p><strong>Nome:</strong> {usuario.nome}</p>
                                     <p><strong>CPF:</strong> {usuario.cpf}</p>
-                                    <button onClick={() => handleEditSenha(usuario)} className="edit-button">Editar Senha</button>
+                                    <button onClick={() => handleEditSenha(usuario._id)} className="edit-button">Editar Senha</button>
                                     <button onClick={() => handleDelete(usuario._id)} className="delete-button">Excluir</button>
                                 </div>
                             </li>
@@ -131,11 +140,11 @@ const Usuario = () => {
                 </ul>
             </div>
 
-
             {isCadastroModalOpen && (
                 <CadastroModal
                     onClose={closeCadastroModal}
                     onSubmit={handleCadastroSubmit}
+                    isSuccess={isSuccess}
                 />
             )}
 
@@ -157,6 +166,11 @@ const Usuario = () => {
                             <button type="submit" className="submitButton">Atualizar</button>
                             <button type="button" onClick={closeSenhaModal} className="closeButton">Fechar</button>
                         </form>
+                        {isSuccess && (
+                            <div className="successMessage">
+                                <h2>Senha atualizada com sucesso!</h2>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

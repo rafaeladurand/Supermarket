@@ -9,6 +9,7 @@ const Produto = () => {
     const [isCadastroModalOpen, setIsCadastroModalOpen] = useState(false);
     const [isDescontoModalOpen, setIsDescontoModalOpen] = useState(false);
     const [currentProduto, setCurrentProduto] = useState(null);
+    const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
         const fetchProdutos = async () => {
@@ -87,7 +88,7 @@ const Produto = () => {
             descricao: e.target.descricao.value,
             dataValidade: e.target.dataValidade.value,
         };
-
+        
         try {
             const response = await fetch('http://localhost:3001/produto', {
                 method: 'POST',
@@ -97,7 +98,10 @@ const Produto = () => {
                 body: JSON.stringify(formData),
             });
             if (response.ok) {
-                window.location.reload();
+                setIsSuccess(true);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
                 const newProduto = await response.json();
                 setProdutos([...produtos, newProduto]);
             } else {
@@ -108,6 +112,7 @@ const Produto = () => {
             console.error('Erro ao cadastrar o produto:', error);
         }
     };
+
     return (
         <div>
             <Header />
@@ -126,7 +131,7 @@ const Produto = () => {
                             <p><strong>Descrição:</strong> {produto.descricao}</p>
                             <p><strong>Data de Validade:</strong> {new Date(produto.dataValidade).toLocaleDateString()}</p>
     
-                            <button onClick={() => handleEditDesconto(produto)} className="edit-button">Editar Preço </button>
+                            <button onClick={() => handleEditDesconto(produto)} className="edit-button">Editar Preço</button>
                             <button onClick={() => handleDelete(produto._id)} className="delete-button">Excluir</button>
                         </div>
                     ))
@@ -139,6 +144,7 @@ const Produto = () => {
                 isOpen={isCadastroModalOpen}
                 closeCadastroModal={closeCadastroModal}
                 onSubmit={handleCadastroSubmit}
+                isSuccess={isSuccess}
             />
     
             {isDescontoModalOpen && (
