@@ -104,20 +104,22 @@ const Usuario = () => {
     return (
         <div>
             <Header />
-            <div className="banner" style={{ position: 'relative' }}>
-                <h1>TELA DE USUÁRIOS DO SISTEMA</h1>
-                <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">Cadastrar</button>
+            <div className="banner">
+                <h1>USUÁRIOS</h1>
+                <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">
+                    Cadastrar
+                </button>
             </div>
-            <div className="grid">
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <div className="grid-container">
+                <ul className="user-list">
                     {usuarios.length > 0 ? (
                         usuarios.map(usuario => (
-                            <li key={usuario._id} style={{ marginBottom: '10px' }}>
-                                <div style={{ border: '1px solid #ccc', padding: '10px', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
+                            <li key={usuario._id} className="user-card">
+                                <div>
                                     <p><strong>Nome:</strong> {usuario.nome}</p>
                                     <p><strong>CPF:</strong> {usuario.cpf}</p>
-                                    <button onClick={() => handleEditSenha(usuario)} style={{ marginRight: '10px' }}>Editar Senha</button>
-                                    <button onClick={() => handleDelete(usuario._id)} style={{ backgroundColor: 'red', color: 'white' }}>Excluir</button>
+                                    <button onClick={() => handleEditSenha(usuario)} className="edit-button">Editar Senha</button>
+                                    <button onClick={() => handleDelete(usuario._id)} className="delete-button">Excluir</button>
                                 </div>
                             </li>
                         ))
@@ -127,7 +129,7 @@ const Usuario = () => {
                 </ul>
             </div>
 
-            {/* Modal de Cadastro */}
+
             {isCadastroModalOpen && (
                 <CadastroModal
                     onClose={closeCadastroModal}

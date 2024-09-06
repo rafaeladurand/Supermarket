@@ -90,10 +90,3 @@
 .closeButton:hover {
     background-color: #d32f2f;
 }
-
-@media (max-width: 600px) {
-    .modalContent {
-        width: 100%;
-        padding: 20px;
-    }
-}
