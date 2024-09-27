@@ -31,8 +31,8 @@ const Login = () => {
         if (responseUsuario.ok) {
           navigate('/funcionario');
 
-        } else if (dataUsuario.message === "Usuário não encontrado") {      
-          const responseCliente = await fetch('http://localhost:3001/cliente/autenticar', {
+        } else if (!responseUsuario.ok) {      
+          const responseCliente = await fetch('http://localhost:3001/auth/cliente', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -41,9 +41,10 @@ const Login = () => {
           });
   
           const dataCliente = await responseCliente.json();
-  
-          if (responseCliente.ok && dataCliente.message === "Login bem-sucedido!") {
-            //navigate('/cliente');
+          nookies.set(null, 'TOKEN', dataCliente.token)
+
+          if (responseCliente.ok) {
+            navigate('/cliente');
           } else {
             setMessage(dataCliente.message || 'Erro ao fazer login'); 
           }

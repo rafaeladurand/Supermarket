@@ -33,15 +33,19 @@ const Produto = () => {
 
     const handleDelete = async (id) => {
         try {
-            const token = parseCookies().TOKEN;
-            await fetch(`http://localhost:3001/produto/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-            setProdutos(produtos.filter(produto => produto._id !== id));
-            window.location.reload();
+            const confirmAlert = confirm('Você tem certeza que quer excluir?');
+            if(confirmAlert){
+                const token = parseCookies().TOKEN;
+                await fetch(`http://localhost:3001/produto/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
+                setProdutos(produtos.filter(produto => produto._id !== id));
+                
+                window.location.reload();
+            }
         } catch (error) {
             console.error('Erro ao excluir o produto:', error);
         }

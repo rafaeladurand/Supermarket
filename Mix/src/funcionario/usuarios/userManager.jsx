@@ -32,14 +32,17 @@ const Usuario = () => {
 
     const handleDelete = async (id) => {
         try {
-            const token = parseCookies().TOKEN;
-            await fetch(`http://localhost:3001/usuario/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-            setUsuarios(usuarios.filter(usuario => usuario._id !== id));
+            const confirmAlert = confirm('Você tem certeza que quer excluir?');
+            if(confirmAlert){
+                const token = parseCookies().TOKEN;
+                await fetch(`http://localhost:3001/usuario/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
+                setUsuarios(usuarios.filter(usuario => usuario._id !== id));
+            }
         } catch (error) {
             console.error('Erro ao excluir o usuário:', error);
         }

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Welcome from './componentes/Welcome';
 import Home from './home/Home';
-import Login from './login/Login';
+import Login from './login/login';
 import Usuario from './home/usuario';
 import Cliente from './home/cliente';
 import ClienteFuncionario from './funcionario/clientes/ClientManager'

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './CadastroModal.css'; // Importa o CSS
+import {nookies, parseCookies} from 'nookies';
+import './CadastroModal.css'; 
 
 const CadastroModal = ({ isOpen, onClose }) => {
     const [formData, setFormData] = useState({
@@ -21,10 +22,12 @@ const CadastroModal = ({ isOpen, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const token = parseCookies().TOKEN
             const response = await fetch('http://localhost:3001/cliente', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(formData),
             });
