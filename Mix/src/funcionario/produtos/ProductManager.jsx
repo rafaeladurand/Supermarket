@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {nookies, parseCookies} from 'nookies';
 import Header from '../../componentes/header';
 import CadastroModal from './CadastroProduto'; // Importe o modal
 import './Produtos.css';
@@ -14,7 +15,12 @@ const Produto = () => {
     useEffect(() => {
         const fetchProdutos = async () => {
             try {
-                const response = await fetch('http://localhost:3001/produto');
+                const token = parseCookies().TOKEN
+                const response = await fetch('http://localhost:3001/produto',{
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
                 const data = await response.json();
                 setProdutos(data);
             } catch (error) {
@@ -27,8 +33,12 @@ const Produto = () => {
 
     const handleDelete = async (id) => {
         try {
+            const token = parseCookies().TOKEN;
             await fetch(`http://localhost:3001/produto/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
             });
             setProdutos(produtos.filter(produto => produto._id !== id));
             window.location.reload();
@@ -46,11 +56,13 @@ const Produto = () => {
         if (!currentProduto) return;
 
         try {
+            const token = parseCookies().TOKEN
             const updatedProduto = { ...currentProduto, precoPromocao };
             const response = await fetch(`http://localhost:3001/produto/${updatedProduto._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(updatedProduto),
             });
@@ -90,10 +102,12 @@ const Produto = () => {
         };
         
         try {
+            const token = parseCookies().TOKEN
             const response = await fetch('http://localhost:3001/produto', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(formData),
             });

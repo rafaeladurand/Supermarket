@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {nookies, parseCookies} from 'nookies';
 import './Produtos.css';
 
 const ProductCard = ({ product }) => {
@@ -19,7 +20,12 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3001/produto');
+        const token = parseCookies().TOKEN
+        const response = await fetch('http://localhost:3001/produto',{
+          headers: {
+            'Authorization': `Bearer ${token}`
+        },
+        });
         const data = await response.json();
         setProducts(data);
       } catch (error) {

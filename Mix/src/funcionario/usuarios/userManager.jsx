@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {nookies, parseCookies} from 'nookies';
 import Header from '../../componentes/header';
 import CadastroModal from './CadastroModal';
 import './Usuarios.css';
@@ -13,7 +14,12 @@ const Usuario = () => {
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
-                const response = await fetch('http://localhost:3001/usuario');
+                const token = parseCookies().TOKEN
+                const response = await fetch('http://localhost:3001/usuario', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                });
                 const data = await response.json();
                 setUsuarios(data);
             } catch (error) {
@@ -26,8 +32,12 @@ const Usuario = () => {
 
     const handleDelete = async (id) => {
         try {
+            const token = parseCookies().TOKEN;
             await fetch(`http://localhost:3001/usuario/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
             });
             setUsuarios(usuarios.filter(usuario => usuario._id !== id));
         } catch (error) {
@@ -44,11 +54,13 @@ const Usuario = () => {
         if (!currentUsuario) return;
 
         try {
+            const token = parseCookies().TOKEN;
             const updatedUsuario = { ...currentUsuario, senha };
             const response = await fetch(`http://localhost:3001/usuario/${updatedUsuario._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(updatedUsuario),
             });
@@ -79,10 +91,12 @@ const Usuario = () => {
         };
 
         try {
+            const token = parseCookies().TOKEN;
             const response = await fetch('http://localhost:3001/usuario', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(formData),
             });

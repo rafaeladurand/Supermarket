@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import CadastroModal from './CadastroCliente'; // Modal de Cadastro
+import {nookies, parseCookies} from 'nookies';
+import CadastroModal from './CadastroCliente'; 
 import Header from '../../componentes/header';
-import './Cliente.css'; // Importa o CSS
+import './Cliente.css'; 
 
 const Cliente = () => {
     const [clientes, setClientes] = useState([]);
     const [isCadastroModalOpen, setIsCadastroModalOpen] = useState(false);
     const [isDescontoModalOpen, setIsDescontoModalOpen] = useState(false);
-    const [currentCliente, setCurrentCliente] = useState(null); // Estado para o cliente atual
+    const [currentCliente, setCurrentCliente] = useState(null); 
 
     useEffect(() => {
         const fetchClientes = async () => {
             try {
-                const response = await fetch('http://localhost:3001/cliente');
+                const token = parseCookies().TOKEN
+                const response = await fetch('http://localhost:3001/cliente', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },});
                 const data = await response.json();
                 setClientes(data);
             } catch (error) {
@@ -25,8 +30,12 @@ const Cliente = () => {
 
     const handleDelete = async (id) => {
         try {
+            const token = parseCookies().TOKEN
             await fetch(`http://localhost:3001/cliente/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
             });
             setClientes(clientes.filter(cliente => cliente._id !== id));
         } catch (error) {
@@ -43,11 +52,13 @@ const Cliente = () => {
         if (!currentCliente) return;
 
         try {
+            const token = parseCookies().TOKEN
             const updatedCliente = { ...currentCliente, desconto };
             const response = await fetch(`http://localhost:3001/cliente/${updatedCliente._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(updatedCliente),
             });

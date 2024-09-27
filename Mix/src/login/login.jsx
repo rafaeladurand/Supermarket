@@ -1,5 +1,6 @@
 import React, { useState } from 'react'; 
 import { useNavigate } from 'react-router-dom'; 
+import nookies from 'nookies';
 import './Login.css';
 import Header from './LoginHeader';
 
@@ -16,18 +17,20 @@ const Login = () => {
       setMessage('');
   
       try {
-        const responseUsuario = await fetch('http://localhost:3001/usuario/autenticar', {
+        const responseUsuario = await fetch('http://localhost:3001/auth/usuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ cpf, senha }),
         });
-  
+      
         const dataUsuario = await responseUsuario.json();
-  
+        nookies.set(null, 'TOKEN', dataUsuario.token)
+
         if (responseUsuario.ok) {
           navigate('/funcionario');
+
         } else if (dataUsuario.message === "Usuário não encontrado") {      
           const responseCliente = await fetch('http://localhost:3001/cliente/autenticar', {
             method: 'POST',
