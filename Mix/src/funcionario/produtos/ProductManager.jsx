@@ -147,7 +147,6 @@ const Produto = () => {
                                 src={produto.image}
                                 alt={produto.nome}
                                 className="product-image"
-                                style={{ width: '100%', height: '200px', objectFit: 'cover' }}
                             />
                             <p><strong>Nome:</strong> {produto.nome}</p>
                             <p><strong>Preço Atual:</strong> {produto.precoAtual}</p>
