@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {nookies, parseCookies} from 'nookies';
+import { nookies, parseCookies } from 'nookies';
 import Header from '../../componentes/header';
 import CadastroModal from './CadastroModal';
 import './Usuarios.css';
@@ -33,7 +33,7 @@ const Usuario = () => {
     const handleDelete = async (id) => {
         try {
             const confirmAlert = confirm('Você tem certeza que quer excluir?');
-            if(confirmAlert){
+            if (confirmAlert) {
                 const token = parseCookies().TOKEN;
                 await fetch(`http://localhost:3001/usuario/${id}`, {
                     method: 'DELETE',
@@ -49,18 +49,34 @@ const Usuario = () => {
     };
 
     const handleEditSenha = (usuario) => {
-        setCurrentUsuario(usuario);
+        console.log("Usuario recebido:", usuario);
+
+        const usuarioEncontrado = usuarios.find(u => u._id === usuario || u._id === usuario._id); 
+        console.log("Usuario encontrado:", usuarioEncontrado); 
+
+
+        setCurrentUsuario(usuarioEncontrado || { _id: usuario });
+        console.log("Current Usuario definido:", currentUsuario);
+
         setIsSenhaModalOpen(true);
     };
 
     const handleUpdateSenha = async (senha) => {
-        if (!currentUsuario) return;
+        if (!currentUsuario || !currentUsuario._id) {
+            console.error('ID do usuário não encontrado'); 
+            return;
+        }
+
+        console.log('Current User ID:', currentUsuario._id); 
+        console.log('Nova senha a ser atualizada:', senha); 
 
         try {
             const token = parseCookies().TOKEN;
-            const updatedUsuario = { ...currentUsuario, senha };
-            const response = await fetch(`http://localhost:3001/usuario/${updatedUsuario._id}`, {
-                method: 'PUT',
+            const updatedUsuario = { senha };
+
+            console.log('Updated User:', updatedUsuario); 
+
+            const response = await fetch(`http://localhost:3001/usuario/${currentUsuario._id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
@@ -68,22 +84,27 @@ const Usuario = () => {
                 body: JSON.stringify(updatedUsuario),
             });
 
+            console.log('Resposta da API:', response); 
+
             if (response.ok) {
-                setIsSuccess(true);
-                setTimeout(() => {
-                    setIsSuccess(false);
-                    setIsSenhaModalOpen(false);
-                    setCurrentUsuario(null);
-                }, 1000);
                 const updatedData = await response.json();
+                console.log('Dados atualizados:', updatedData);
+
                 setUsuarios(usuarios.map(usuario => usuario._id === updatedData._id ? updatedData : usuario));
+                console.log('Lista de usuários atualizada:', usuarios); 
+                setIsSenhaModalOpen(false);
+                window.location.reload(); 
             } else {
-                console.error('Erro ao atualizar a senha:', await response.text());
+                console.error('Erro ao atualizar a senha:', await response.text()); 
             }
         } catch (error) {
-            console.error('Erro ao atualizar a senha:', error);
+            console.error('Erro ao atualizar a senha:', error); 
         }
     };
+
+
+
+
 
     const handleCadastroSubmit = async (e) => {
         e.preventDefault();

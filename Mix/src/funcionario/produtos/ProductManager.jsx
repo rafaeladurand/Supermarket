@@ -31,6 +31,7 @@ const Produto = () => {
         fetchProdutos();
     }, []);
 
+    
     const handleDelete = async (id) => {
         try {
             const confirmAlert = confirm('Você tem certeza que quer excluir?');
