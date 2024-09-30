@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {nookies, parseCookies} from 'nookies';
+import { nookies, parseCookies } from 'nookies';
 import Header from '../../componentes/header';
-import CadastroModal from './CadastroProduto'; // Importe o modal
+import CadastroModal from './CadastroProduto';
 import './Produtos.css';
 
 
@@ -16,7 +16,7 @@ const Produto = () => {
         const fetchProdutos = async () => {
             try {
                 const token = parseCookies().TOKEN
-                const response = await fetch('http://localhost:3001/produto',{
+                const response = await fetch('http://localhost:3001/produto', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     },
@@ -34,7 +34,7 @@ const Produto = () => {
     const handleDelete = async (id) => {
         try {
             const confirmAlert = confirm('Você tem certeza que quer excluir?');
-            if(confirmAlert){
+            if (confirmAlert) {
                 const token = parseCookies().TOKEN;
                 await fetch(`http://localhost:3001/produto/${id}`, {
                     method: 'DELETE',
@@ -43,7 +43,7 @@ const Produto = () => {
                     },
                 });
                 setProdutos(produtos.filter(produto => produto._id !== id));
-                
+
                 window.location.reload();
             }
         } catch (error) {
@@ -79,7 +79,7 @@ const Produto = () => {
             } else {
                 console.error('Erro ao atualizar o desconto:', await response.text());
             }
-            
+
         } catch (error) {
             console.error('Erro ao atualizar o desconto:', error);
         }
@@ -103,8 +103,9 @@ const Produto = () => {
             tipo: e.target.tipo.value,
             descricao: e.target.descricao.value,
             dataValidade: e.target.dataValidade.value,
+            image: e.target.image.value,
         };
-        
+
         try {
             const token = parseCookies().TOKEN
             const response = await fetch('http://localhost:3001/produto', {
@@ -125,7 +126,7 @@ const Produto = () => {
             } else {
                 console.error('Erro ao cadastrar o produto:', await response.text());
             }
-            
+
         } catch (error) {
             console.error('Erro ao cadastrar o produto:', error);
         }
@@ -142,13 +143,19 @@ const Produto = () => {
                 {produtos.length > 0 ? (
                     produtos.map(produto => (
                         <div key={produto._id} className="product-card">
+                            <img
+                                src={produto.image}
+                                alt={produto.nome}
+                                className="product-image"
+                                style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                            />
                             <p><strong>Nome:</strong> {produto.nome}</p>
                             <p><strong>Preço Atual:</strong> {produto.precoAtual}</p>
                             <p><strong>Preço Promoção:</strong> {produto.precoPromocao}</p>
                             <p><strong>Tipo:</strong> {produto.tipo}</p>
                             <p><strong>Descrição:</strong> {produto.descricao}</p>
                             <p><strong>Data de Validade:</strong> {new Date(produto.dataValidade).toLocaleDateString()}</p>
-    
+
                             <button onClick={() => handleEditDesconto(produto)} className="edit-button">Editar Preço</button>
                             <button onClick={() => handleDelete(produto._id)} className="delete-button">Excluir</button>
                         </div>
@@ -157,14 +164,14 @@ const Produto = () => {
                     <p>Nenhum produto encontrado.</p>
                 )}
             </div>
-    
+
             <CadastroModal
                 isOpen={isCadastroModalOpen}
                 closeCadastroModal={closeCadastroModal}
                 onSubmit={handleCadastroSubmit}
                 isSuccess={isSuccess}
             />
-    
+
             {isDescontoModalOpen && (
                 <div className="modalOverlay">
                     <div className="modalContent">
@@ -188,6 +195,6 @@ const Produto = () => {
             )}
         </div>
     );
-}  
+}
 
 export default Produto;

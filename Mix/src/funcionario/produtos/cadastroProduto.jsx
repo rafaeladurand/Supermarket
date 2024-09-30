@@ -1,5 +1,5 @@
 import React from 'react';
-import './CadastroModal.css'; 
+import './CadastroModal.css';
 
 const CadastroModal = ({ isOpen, closeCadastroModal, onSubmit, isSuccess }) => {
     if (!isOpen) return null;
@@ -15,6 +15,13 @@ const CadastroModal = ({ isOpen, closeCadastroModal, onSubmit, isSuccess }) => {
                     <>
                         <h2>Cadastro de Produto</h2>
                         <form className="container-form" onSubmit={onSubmit}>
+                            <div className='formGroup-price'>
+                                <label htmlFor="image">URL da Imagem:</label>
+                                <input
+                                    className="input-style"
+                                    type="url"
+                                    id="image"></input>
+                            </div>
                             <div className="formGroup-price">
                                 <label htmlFor="nome">Nome:</label>
                                 <input className="input-style" id="nome" name="nome" required />
@@ -62,6 +69,8 @@ const CadastroModal = ({ isOpen, closeCadastroModal, onSubmit, isSuccess }) => {
                                     required
                                 />
                             </div>
+
+
                             <button type="submit" className="submitButton">Cadastrar</button>
                             <button type="button" onClick={closeCadastroModal} className="closeButton">Fechar</button>
                         </form>
