@@ -77,6 +77,7 @@ const Usuario = () => {
             console.log('Updated User:', updatedUsuario); 
 
             const response = await fetch(`http://localhost:3001/usuario/${currentUsuario._id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
