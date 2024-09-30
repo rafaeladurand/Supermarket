@@ -11,11 +11,12 @@ const Produto = () => {
     const [isDescontoModalOpen, setIsDescontoModalOpen] = useState(false);
     const [currentProduto, setCurrentProduto] = useState(null);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [searchQuery, setSearchQuery] = useState(''); 
 
     useEffect(() => {
         const fetchProdutos = async () => {
             try {
-                const token = parseCookies().TOKEN
+                const token = parseCookies().TOKEN;
                 const response = await fetch('http://localhost:3001/produto', {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -31,7 +32,6 @@ const Produto = () => {
         fetchProdutos();
     }, []);
 
-    
     const handleDelete = async (id) => {
         try {
             const confirmAlert = confirm('Você tem certeza que quer excluir?');
@@ -44,7 +44,6 @@ const Produto = () => {
                     },
                 });
                 setProdutos(produtos.filter(produto => produto._id !== id));
-
                 window.location.reload();
             }
         } catch (error) {
@@ -61,7 +60,7 @@ const Produto = () => {
         if (!currentProduto) return;
 
         try {
-            const token = parseCookies().TOKEN
+            const token = parseCookies().TOKEN;
             const updatedProduto = { ...currentProduto, precoPromocao };
             const response = await fetch(`http://localhost:3001/produto/${updatedProduto._id}`, {
                 method: 'PUT',
@@ -108,7 +107,7 @@ const Produto = () => {
         };
 
         try {
-            const token = parseCookies().TOKEN
+            const token = parseCookies().TOKEN;
             const response = await fetch('http://localhost:3001/produto', {
                 method: 'POST',
                 headers: {
@@ -133,16 +132,31 @@ const Produto = () => {
         }
     };
 
+    const filteredProdutos = produtos.filter(produto =>
+        produto.nome.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <div>
             <Header />
-            <div className="banner" style={{ position: 'relative' }}>
+            <div className="banner" >
                 <h1>PRODUTOS</h1>
+                <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Buscar produto pelo nome..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </div>
                 <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">Cadastrar</button>
             </div>
+
+            
+
             <div className="grid-container">
-                {produtos.length > 0 ? (
-                    produtos.map(produto => (
+                {filteredProdutos.length > 0 ? (
+                    filteredProdutos.map(produto => (
                         <div key={produto._id} className="product-card">
                             <img
                                 src={produto.image}
