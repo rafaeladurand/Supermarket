@@ -174,7 +174,7 @@ const Usuario = () => {
                                     <div>
                                         <p><strong>Nome:</strong> {usuario.nome}</p>
                                         <p><strong>CPF:</strong> {usuario.cpf}</p>
-                                        <button onClick={() => handleEditSenha(usuario._id)} className="edit-button">Editar Senha e Avatar</button>
+                                        <button onClick={() => handleEditSenha(usuario._id)} className="edit-button">Editar Senha ou Avatar</button>
                                         <button onClick={() => handleDelete(usuario._id)} className="delete-button">Excluir</button>
                                     </div>
                                 </div>
