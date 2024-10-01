@@ -51,8 +51,8 @@ const Usuario = () => {
     const handleEditSenha = (usuario) => {
         console.log("Usuario recebido:", usuario);
 
-        const usuarioEncontrado = usuarios.find(u => u._id === usuario || u._id === usuario._id); 
-        console.log("Usuario encontrado:", usuarioEncontrado); 
+        const usuarioEncontrado = usuarios.find(u => u._id === usuario || u._id === usuario._id);
+        console.log("Usuario encontrado:", usuarioEncontrado);
 
 
         setCurrentUsuario(usuarioEncontrado || { _id: usuario });
@@ -61,69 +61,67 @@ const Usuario = () => {
         setIsSenhaModalOpen(true);
     };
 
-    const handleUpdateSenha = async (senha) => {
+    const handleUpdateSenha = async (senha, avatarFile) => {
         if (!currentUsuario || !currentUsuario._id) {
-            console.error('ID do usuário não encontrado'); 
+            console.error('ID do usuário não encontrado');
             return;
         }
 
-        console.log('Current User ID:', currentUsuario._id); 
-        console.log('Nova senha a ser atualizada:', senha); 
+        console.log('Current User ID:', currentUsuario._id);
+        console.log('Nova senha a ser atualizada:', senha);
 
         try {
             const token = parseCookies().TOKEN;
-            const updatedUsuario = { senha };
-
-            console.log('Updated User:', updatedUsuario); 
+            const formData = new FormData();
+            formData.append('senha', senha);
+            if (avatarFile) {
+                formData.append('avatar', avatarFile);
+            }
 
             const response = await fetch(`http://localhost:3001/usuario/${currentUsuario._id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(updatedUsuario),
+                body: formData,
             });
 
-            console.log('Resposta da API:', response); 
+            console.log('Resposta da API:', response);
 
             if (response.ok) {
                 const updatedData = await response.json();
                 console.log('Dados atualizados:', updatedData);
 
                 setUsuarios(usuarios.map(usuario => usuario._id === updatedData._id ? updatedData : usuario));
-                console.log('Lista de usuários atualizada:', usuarios); 
+                console.log('Lista de usuários atualizada:', usuarios);
                 setIsSenhaModalOpen(false);
-                window.location.reload(); 
+                window.location.reload();
             } else {
-                console.error('Erro ao atualizar a senha:', await response.text()); 
+                console.error('Erro ao atualizar a senha e/ou avatar:', await response.text());
             }
         } catch (error) {
-            console.error('Erro ao atualizar a senha:', error); 
+            console.error('Erro ao atualizar a senha e/ou avatar:', error);
         }
     };
 
-
-
-
-
-    const handleCadastroSubmit = async (e) => {
+    const handleCadastroSubmit = async (e, avatarFile) => {
         e.preventDefault();
-        const formData = {
-            nome: e.target.nome.value,
-            cpf: e.target.cpf.value,
-            senha: e.target.senha.value,
-        };
+        const formData = new FormData();
+        formData.append('nome', e.target.nome.value);
+        formData.append('cpf', e.target.cpf.value);
+        formData.append('senha', e.target.senha.value);
+        if (avatarFile) {
+            formData.append('avatar', avatarFile);
+        }
 
         try {
             const token = parseCookies().TOKEN;
             const response = await fetch('http://localhost:3001/usuario', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(formData),
+                body: formData,
             });
             if (response.ok) {
                 setIsSuccess(true);
@@ -141,6 +139,7 @@ const Usuario = () => {
             console.error('Erro ao cadastrar o usuário:', error);
         }
     };
+
 
     const closeCadastroModal = () => {
         setIsCadastroModalOpen(false);
@@ -161,15 +160,23 @@ const Usuario = () => {
                 </button>
             </div>
             <div className="grid-container">
+       
                 <ul className="user-list">
                     {usuarios.length > 0 ? (
                         usuarios.map(usuario => (
                             <li key={usuario._id} className="user-card">
-                                <div>
-                                    <p><strong>Nome:</strong> {usuario.nome}</p>
-                                    <p><strong>CPF:</strong> {usuario.cpf}</p>
-                                    <button onClick={() => handleEditSenha(usuario._id)} className="edit-button">Editar Senha</button>
-                                    <button onClick={() => handleDelete(usuario._id)} className="delete-button">Excluir</button>
+                                <div className="user-info">
+                                    {usuario.avatar ? (
+                                        <img src={`http://localhost:3001${usuario.avatar}`} alt={`${usuario.nome} avatar`} className="avatar" />
+                                    ) : (
+                                        <img src="/default-avatar.png" alt="Avatar padrão" className="avatar" />
+                                    )}
+                                    <div>
+                                        <p><strong>Nome:</strong> {usuario.nome}</p>
+                                        <p><strong>CPF:</strong> {usuario.cpf}</p>
+                                        <button onClick={() => handleEditSenha(usuario._id)} className="edit-button">Editar Senha e Avatar</button>
+                                        <button onClick={() => handleDelete(usuario._id)} className="delete-button">Excluir</button>
+                                    </div>
                                 </div>
                             </li>
                         ))
@@ -177,6 +184,7 @@ const Usuario = () => {
                         <li>Nenhum usuário encontrado.</li>
                     )}
                 </ul>
+
             </div>
 
             {isCadastroModalOpen && (
@@ -190,29 +198,36 @@ const Usuario = () => {
             {isSenhaModalOpen && (
                 <div className="modalOverlay">
                     <div className="modalContent">
-                        <h2>Editar Senha</h2>
+                        <h2>Editar Senha e Avatar</h2>
                         <form
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 const senha = e.target.senha.value;
-                                handleUpdateSenha(senha);
+                                const avatarFile = e.target.avatar.files[0];
+                                handleUpdateSenha(senha, avatarFile);
                             }}
+                            encType="multipart/form-data"
                         >
                             <div className="formGroup">
                                 <label htmlFor="senha">Nova Senha:</label>
-                                <input type="password" id="senha" name="senha" required />
+                                <input type="password" id="senha" name="senha" />
+                            </div>
+                            <div className="formGroup">
+                                <label htmlFor="avatar">Novo Avatar:</label>
+                                <input type="file" id="avatar" name="avatar" accept="image/*" />
                             </div>
                             <button type="submit" className="submitButton">Atualizar</button>
                             <button type="button" onClick={closeSenhaModal} className="closeButton">Fechar</button>
                         </form>
                         {isSuccess && (
                             <div className="successMessage">
-                                <h2>Senha atualizada com sucesso!</h2>
+                                <h2>Senha e/ou Avatar atualizados com sucesso!</h2>
                             </div>
                         )}
                     </div>
                 </div>
             )}
+
         </div>
     );
 };

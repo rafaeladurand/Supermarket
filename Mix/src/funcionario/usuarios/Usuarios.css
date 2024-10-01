@@ -79,3 +79,61 @@
     background-color: #00796b; 
     transform: scale(1);
 }
+
+/* Usuarios.css */
+.user-card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.submitButton, .closeButton, .edit-button, .delete-button {
+    margin-right: 10px;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.submitButton {
+    background-color: #009688;
+    color: white;
+}
+
+.closeButton {
+    background-color: #f44336;
+    color: white;
+}
+
+.edit-button {
+    background-color: #009688;
+    color: white;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.successMessage {
+    margin-top: 10px;
+    color: 009688;
+}
