@@ -4,7 +4,7 @@ import Header from '../../componentes/header';
 import CadastroModal from './CadastroModal';
 import './Usuarios.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 const Usuario = () => {
@@ -159,7 +159,7 @@ const Usuario = () => {
             <div className="banner">
                 <h1>USUÁRIOS</h1>
                 <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">
-                    Cadastrar
+                <FontAwesomeIcon icon={faPlus}/>
                 </button>
             </div>
             <div className="grid-container">

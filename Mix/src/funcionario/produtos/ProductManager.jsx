@@ -4,7 +4,7 @@ import Header from '../../componentes/header';
 import CadastroModal from './CadastroProduto';
 import './Produtos.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -152,7 +152,7 @@ const Produto = () => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </div>
-                <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">Cadastrar</button>
+                <button onClick={() => setIsCadastroModalOpen(true)} className="addButton"> <FontAwesomeIcon icon={faPlus}/> </button>
             </div>
 
             

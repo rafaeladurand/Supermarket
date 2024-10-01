@@ -4,7 +4,7 @@ import CadastroModal from './CadastroCliente';
 import Header from '../../componentes/header';
 import './Cliente.css'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const Cliente = () => {
     const [clientes, setClientes] = useState([]);
@@ -94,7 +94,7 @@ const Cliente = () => {
             <Header />
             <div className="banner">
                 <h1>CLIENTES</h1>
-                <button onClick={() => setIsCadastroModalOpen(true)} className="addButton">Cadastrar</button>
+                <button onClick={() => setIsCadastroModalOpen(true)} className="addButton"><FontAwesomeIcon icon={faPlus}/></button>
             </div>
             <div className="grid-container">
                 {clientes.length > 0 ? (
