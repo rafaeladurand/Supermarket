@@ -3,6 +3,9 @@ import { nookies, parseCookies } from 'nookies';
 import Header from '../../componentes/header';
 import CadastroModal from './CadastroProduto';
 import './Produtos.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 
 const Produto = () => {
@@ -169,9 +172,10 @@ const Produto = () => {
                             <p><strong>Tipo:</strong> {produto.tipo}</p>
                             <p><strong>Descrição:</strong> {produto.descricao}</p>
                             <p><strong>Data de Validade:</strong> {new Date(produto.dataValidade).toLocaleDateString()}</p>
-
-                            <button onClick={() => handleEditDesconto(produto)} className="edit-button">Editar Preço</button>
-                            <button onClick={() => handleDelete(produto._id)} className="delete-button">Excluir</button>
+                            <div className="button-container">
+                            <button onClick={() => handleEditDesconto(produto)} className="edit-button"><FontAwesomeIcon icon={faEdit} /></button>
+                            <button onClick={() => handleDelete(produto._id)} className="delete-button">  <FontAwesomeIcon icon={faTrash} /> </button>
+                            </div>
                         </div>
                     ))
                 ) : (

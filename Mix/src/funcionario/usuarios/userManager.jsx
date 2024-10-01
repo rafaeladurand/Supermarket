@@ -3,6 +3,9 @@ import { nookies, parseCookies } from 'nookies';
 import Header from '../../componentes/header';
 import CadastroModal from './CadastroModal';
 import './Usuarios.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 const Usuario = () => {
     const [usuarios, setUsuarios] = useState([]);
@@ -160,30 +163,38 @@ const Usuario = () => {
                 </button>
             </div>
             <div className="grid-container">
-       
-                <ul className="user-list">
-                    {usuarios.length > 0 ? (
-                        usuarios.map(usuario => (
-                            <li key={usuario._id} className="user-card">
-                                <div className="user-info">
-                                    {usuario.avatar ? (
-                                        <img src={`http://localhost:3001${usuario.avatar}`} alt={`${usuario.nome} avatar`} className="avatar" />
-                                    ) : (
-                                        <img src="/default-avatar.png" alt="Avatar padrão" className="avatar" />
-                                    )}
-                                    <div>
-                                        <p><strong>Nome:</strong> {usuario.nome}</p>
-                                        <p><strong>CPF:</strong> {usuario.cpf}</p>
-                                        <button onClick={() => handleEditSenha(usuario._id)} className="edit-button">Editar Senha ou Avatar</button>
-                                        <button onClick={() => handleDelete(usuario._id)} className="delete-button">Excluir</button>
-                                    </div>
-                                </div>
-                            </li>
-                        ))
+
+            <ul className="user-list">
+    {usuarios.length > 0 ? (
+        usuarios.map(usuario => (
+            <li key={usuario._id} className="user-card">
+                <div className="user-info">
+                    {usuario.avatar ? (
+                        <img src={`http://localhost:3001${usuario.avatar}`} alt={`${usuario.nome} avatar`} className="avatar" />
                     ) : (
-                        <li>Nenhum usuário encontrado.</li>
+                        <img src="/default-avatar.png" alt="Avatar padrão" className="avatar" />
                     )}
-                </ul>
+                    <div>
+                        <p><strong>Nome:</strong> {usuario.nome}</p>
+                        <p><strong>CPF:</strong> {usuario.cpf}</p>
+                        <div className="button-container">
+                            <button onClick={() => handleEditSenha(usuario._id)} className="edit-button">
+                                <FontAwesomeIcon icon={faEdit} /> 
+                            </button>
+                            <button onClick={() => handleDelete(usuario._id)} className="delete-button">
+                                <FontAwesomeIcon icon={faTrash} /> 
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        ))
+    ) : (
+        <li>Nenhum usuário encontrado.</li>
+    )}
+</ul>
+
+
 
             </div>
 

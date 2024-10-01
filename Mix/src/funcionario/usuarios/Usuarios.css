@@ -137,3 +137,33 @@
     margin-top: 10px;
     color: 009688;
 }
+
+.edit-button, .delete-button {
+    display: flex;
+    align-items: center;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; 
+}
+
+.edit-button, .delete-button {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #009688;
+    color: white;
+}
+
+.delete-button {
+    background-color: #f44336;
+    color: white;
+}
+

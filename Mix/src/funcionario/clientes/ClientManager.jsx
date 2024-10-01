@@ -3,6 +3,8 @@ import {nookies, parseCookies} from 'nookies';
 import CadastroModal from './CadastroCliente'; 
 import Header from '../../componentes/header';
 import './Cliente.css'; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Cliente = () => {
     const [clientes, setClientes] = useState([]);
@@ -103,9 +105,10 @@ const Cliente = () => {
                             <p><strong>Idade:</strong> {cliente.idade}</p>
                             <p><strong>Tempo de cliente:</strong> {cliente.tempoCliente} anos</p>
                             <p><strong>Desconto:</strong> {cliente.desconto || 'N/A'}</p>
-    
-                            <button onClick={() => handleEditDesconto(cliente)} className="edit-button">Editar Desconto</button>
-                            <button onClick={() => handleDelete(cliente._id)} className="delete-button">Excluir</button>
+                            <div className="button-container"> 
+                            <button onClick={() => handleEditDesconto(cliente)} className="edit-button"><FontAwesomeIcon icon={faEdit} /> </button>
+                            <button onClick={() => handleDelete(cliente._id)} className="delete-button"><FontAwesomeIcon icon={faTrash} /> </button>
+                            </div>
                         </div>
                     ))
                 ) : (
