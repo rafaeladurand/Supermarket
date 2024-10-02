@@ -1,16 +1,22 @@
-import React, {  } from 'react'; 
+import React from 'react'; 
 import { Link } from 'react-router-dom'; 
 import './Header.css';
 import homeimage from '../assets/home.png';
 import sairimage from '../assets/saida.png';
 import logoImage from '../assets/logo.png';
-import managerImage from '../assets/configuracoes.png'
+import managerImage from '../assets/configuracoes.png';
+import nookies from 'nookies'; 
 
 const Header = () => {
+    const handleLogout = () => {
+        nookies.destroy(null, 'TOKEN');
+        window.location.href = '/login';
+    };
+
     return (
       <header className="header">
         <div className="logo">
-        <Link to="/">
+          <Link to="/">
             <img src={logoImage} alt="logo" className="logo" />
           </Link>
           <span className="logoText">mix.com.br</span>
@@ -22,12 +28,16 @@ const Header = () => {
           <Link to="/funcionario">
             <img src={managerImage} alt="Gerenciamento" className="icon" />
           </Link>
-          <Link to="/login">
-            <img src={sairimage} alt="Login" className="icon" />
-          </Link>
+          <img 
+            src={sairimage} 
+            alt="Logout" 
+            className="icon" 
+            onClick={handleLogout} 
+            style={{ cursor: 'pointer' }} 
+          />
         </div>
       </header>
     );
-  };
+};
 
 export default Header;
