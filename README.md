@@ -13,6 +13,18 @@ https://github.com/user-attachments/assets/4772fa10-fe57-43ea-bf5d-e407a96f5fa7
 - React Router Dom
 - UseEffect  
 - UseState
+- FontAwesomeIcon
+
+---
+
+### 🔐 Criptografia, Tokens e Cookies
+
+- **Gerenciamento de Cookies**: Utilizamos o pacote `nookies` para manipulação de cookies, facilitando o armazenamento seguro de tokens e informações de sessão no lado do cliente.
+  ```bash
+  npm install nookies
+  ```
+
+---
 
 ## 🖥️ Libs para instalar e visualizar o projeto 
 
